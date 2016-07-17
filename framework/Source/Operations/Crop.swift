@@ -11,7 +11,7 @@ public class Crop: BasicOperation {
 
     override func renderFrame() {
         let inputFramebuffer:Framebuffer = inputFramebuffers[0]!
-        let inputSize = inputFramebuffer.sizeForTargetOrientation(.Portrait)
+        let inputSize = inputFramebuffer.sizeForTargetOrientation(.portrait)
         
         let finalCropSize:GLSize
         let normalizedOffsetFromOrigin:Position
@@ -25,13 +25,13 @@ public class Crop: BasicOperation {
             normalizedOffsetFromOrigin = Position(Float(inputSize.width / 2 - finalCropSize.width / 2) / Float(inputSize.width), Float(inputSize.height / 2 - finalCropSize.height / 2) / Float(inputSize.height))
         } else {
             finalCropSize = inputSize
-            normalizedOffsetFromOrigin  = Position.Zero
+            normalizedOffsetFromOrigin  = Position.zero
         }
         let normalizedCropSize = Size(width:Float(finalCropSize.width) / Float(inputSize.width), height:Float(finalCropSize.height) / Float(inputSize.height))
         
-        renderFramebuffer = sharedImageProcessingContext.framebufferCache.requestFramebufferWithProperties(orientation:.Portrait, size:finalCropSize, stencil:false)
+        renderFramebuffer = sharedImageProcessingContext.framebufferCache.requestFramebufferWithProperties(orientation:.portrait, size:finalCropSize, stencil:false)
         
-        let textureProperties = InputTextureProperties(textureCoordinates:inputFramebuffer.orientation.rotationNeededForOrientation(.Portrait).croppedTextureCoordinates(offsetFromOrigin:normalizedOffsetFromOrigin, cropSize:normalizedCropSize), texture:inputFramebuffer.texture)
+        let textureProperties = InputTextureProperties(textureCoordinates:inputFramebuffer.orientation.rotationNeededForOrientation(.portrait).croppedTextureCoordinates(offsetFromOrigin:normalizedOffsetFromOrigin, cropSize:normalizedCropSize), texture:inputFramebuffer.texture)
         
         renderFramebuffer.activateFramebufferForRendering()
         clearFramebufferWithColor(backgroundColor)
